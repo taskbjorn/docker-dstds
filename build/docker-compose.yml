@@ -1,0 +1,7 @@
+version: "3.9"
+
+services:
+  dstds_latest:
+    build:
+      context: latest
+    image: taskbjorn/dstds:latest

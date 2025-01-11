@@ -1,0 +1,35 @@
+version: "3.8"
+
+networks:
+  backend:
+    name: dst
+
+services:
+  dst-master:
+    container_name: dst-master
+    environment:
+      - "SERVER_TOKEN=<insert-your-server-token-here>""
+      - "SHARD_NAME=Master"
+    image: taskbjorn/dstds-dockerized:latest
+    networks:
+      - backend
+    ports:
+      - "10999:10999/udp"
+    restart: unless-stopped
+    volumes:
+      - "data:/home/dst/.klei/DoNotStarveTogether/MyDediServer"
+
+  dst-caves:
+    container_name: dst-cave
+    environment:
+      - "SHARD_NAME=Caves"
+    image: taskbjorn/dstds-dockerized:latest
+    networks:
+      - backend
+    restart: unless-stopped
+    volumes:
+      - "data:/home/dst/.klei/DoNotStarveTogether/MyDediServer"
+
+volumes:
+  data:
+    name: dst_data
